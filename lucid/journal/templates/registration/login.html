@@ -1,0 +1,40 @@
+<!-- Render Django Login View -->
+{% load static %}
+
+<!-- Load widget tweaks for form CSS control -->
+{% load widget_tweaks %}
+
+{% block title %}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{%static 'journal/style.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,400;0,500;1,100&display=swap" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %} 
+    <div>
+        <h2>Login</h2>
+    </div>
+
+
+    <div class="pure-g pure-5-5 login">
+        <form class="pure-form pure-form-aligned" action="" method="post">
+            {% csrf_token %} 
+            <table>
+                {{ form.as_p }}
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Submit"></td>
+                </tr>
+            </table> 
+        </form>
+    </div>
+    <div class="pure-g pure-5-5 sign-up-section">
+        <h3>Not signed up? Create an account now</h3> <button><a href="/signup">Create Account</a></button>
+    </div>
+
+{% endblock %}

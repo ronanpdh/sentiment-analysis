@@ -1,0 +1,38 @@
+<!-- Extend base.html template and load static files  -->
+
+{% extends "journal/base.html" %}
+{% load static %}
+
+{% load widget_tweaks %}
+
+<!-- Head block -->
+
+{% block head %}
+    <link rel="stylesheet" href="{%static 'journal/style.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,400;0,500;1,100&display=swap" rel="stylesheet">
+{% endblock %}
+
+
+<!-- Main content block -->
+
+{% block content %}
+
+<div class="pure-g pure-u-5-5">
+    <div class="form-container">
+        <form class="pure-form pure-form-stacked" action="" method="POST">
+            {% csrf_token %}
+            {% render_field form.title|add_class:"form-title" %}
+            {% render_field form.text_entry|add_class:"form-text" %}
+            <!-- {{ form.as_p }} -->
+            
+            <button class="pure-button button-save" value="submit" type="submit">
+                Save
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,281 @@
+body {
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    overflow: hidden;
+}
+
+/* Button Styling */
+
+button.button-success,
+button.button-error,
+button.button-warning,
+button.button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+button.button-warning {
+    background: rgb(223, 117, 20);
+}
+
+/* Journal Page CSS  */
+
+
+
+/* Nav/menu */
+
+.nav-menu img {
+    width: 38px;
+    height: auto;
+}
+
+.pure-menu {
+    min-height: 50px;
+    background-color: #84A98C;
+    padding: 0.5em;
+}
+
+.pure-menu a {
+    color: white;
+    font-size: larger;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+}
+
+nav-menu {
+    display: flex;
+    justify-content: center;
+}
+  
+.nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+.nav-item:hover {
+    background-color: #84A98C;
+}
+
+.nav-item .pure-menu-link:hover {
+    background-color: transparent;
+    color: #EE6C4D;
+}
+
+
+
+
+/* Login Page / Accounts Styling  */
+.pure-g.pure-5-5.login {
+    display: flex;
+    justify-content: center;
+}
+
+div.pure-g.pure-5-5.sign-up-section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 250px;
+}
+
+
+
+
+/* Sign up Page */
+
+div.pure-g.pure-5-5.sign-control{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div.pure-control-group {
+    height: 100vh;
+
+}
+
+div.pure-control-group {
+    display: flex;
+    justify-content: center;
+}
+
+form.pure-form.pure-form-aligned.sign-up-form,
+div.form-group {
+    padding: 1em;
+}
+
+
+
+
+
+
+
+/* Form Entry Styling */
+
+div.form-container,
+form.pure-form.pure-form-stacked {
+    width: 100%;
+    height: 100vh;
+}
+
+
+input.pure-input-2-3 {
+    padding: 1em;
+    margin: 1em;
+}
+
+input::placeholder {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+    font-style: italic;
+    color: black;
+}
+
+
+
+  
+textarea {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+
+    width: 100%;
+    height: 100vh;
+
+    border: none;
+    overflow: none;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    margin: 25px;
+    padding: 25px;
+
+    background-color: white ;
+}
+
+textarea::placeholder {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+    font-style: italic;
+}
+
+.pure-button.button-save {
+    background-color: #84A98C;
+    color: white;
+    border-radius: 8px;
+    padding: 12px 24px;
+    padding: 1em;
+    width: 10vw;
+
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+}
+
+.pure-button.button-save:hover {
+    background-color: #73b4d4;
+}
+
+
+
+
+
+
+/* Archive CSS Styles */
+
+h1 {
+    margin: 25px;
+    padding: 25px;
+}
+
+.archive {
+    display: flex;
+    justify-content: center;
+}
+
+.archive table {
+    padding: 10px;
+}
+
+.pure-table.custom-table {
+    width: 100%; 
+    /* border-collapse: collapse;  */
+    border: none;
+    padding: 10px;
+}
+
+.pure-table.custom-table thead {
+    background-color: transparent;
+}
+
+.pure-table.custom-table td,
+.pure-table.custom-table thead {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-color: black;
+}
+
+.pure-table.custom-table td a:link,
+.pure-table.custom-table td a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.pure-table.custom-table tbody tr:last-child td {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-color: black;
+}
+
+
+
+
+
+
+/* Sentiment Page CSS */
+
+.graph-container  {
+    padding-top: 2em;
+}
+
+.graphone div {
+    margin-top: 25px;
+    margin-left: 100px;
+    border: solid 2px black;
+    width: 900px;
+    height: 800px;
+}
+
+.graphtwo div {
+    margin: 25px;
+    border: solid 2px black;
+    width: 500px;
+    height: 800px;
+}
+
+
+
+/* Journal entry detail view */
+
+div.journal-detail {
+    padding: 50px;
+    margin: 10px;
+}
+
+
+
+div.text-entry {
+    padding-right: 20px;
+}
+
+.entry-analysis {
+    padding-left: 1em;
+}
