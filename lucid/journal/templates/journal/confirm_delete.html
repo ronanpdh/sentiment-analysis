@@ -18,21 +18,25 @@
 
 {% block content %}
 
-<div class="pure-g pure-u-5-5">
-    <div class="form-container">
-        <form class="pure-form pure-form-stacked" action="" method="POST">
-            {% csrf_token %}
-            <p>Are you sure you want to delete journal entry "{{object.title}}"? This cannot be undone.</p>
-            <!-- {{ form.as_p }} -->
-            
-            <button class="button-warning pure-button" type="submit">
-                Confirm
-            </button>
-            <a href="{% url 'journallist' %}"><button class="button-secondary pure-button" value="Cancel" type="submit">
-                Cancel
-            </button></a>
-        </form>
+<div class="content">
+
+    <div class="pure-g pure-u-5-5">
+        <div class="form-container">
+            <form class="pure-form pure-form-stacked" action="" method="POST">
+                {% csrf_token %}
+                <p>Are you sure you want to delete journal entry "{{object.title}}"? This cannot be undone.</p>
+                <!-- {{ form.as_p }} -->
+                
+                <button class="button-warning pure-button" type="submit">
+                    Confirm
+                </button>
+                <a href="{% url 'journallist' %}"><button class="button-secondary pure-button" value="Cancel" type="reset">
+                    Cancel
+                </button></a>
+            </form>
+        </div>
     </div>
+    
 </div>
 
 {% endblock %}

@@ -17,41 +17,42 @@
 <!-- Main Content -->
 {% block content %} 
 
-<div class="journal-detail">
-    <h2>{{object.title}}</h2>
+<div class="content">
+    <div class="journal-detail">
+        <h2>{{object.title}}</h2>
 
-    <div class="pure-g entry-detail"> 
-        <div class="pure-u-3-5">
-            <div class="text-entry">
-                <p>{{ object.text_entry }}</p>
+        <div class="pure-g entry-detail"> 
+            <div class="pure-u-3-5">
+                <div class="text-entry">
+                    <p>{{ object.text_entry }}</p>
+                </div>
             </div>
-        </div>
 
-        <div class="pure-u-2-5">
-            <div class="entry-analysis">
-                <p> Sentiment: {{ object.sentiment }}</p>
+            <div class="pure-u-2-5">
+                <div class="entry-analysis">
+                    <p> Sentiment: {{ object.sentiment }}</p>
 
-                {% if object.thought_distortions %}
-                    <p> Avy Detected no Thought Distortions!</p>
+                    {% if object.thought_distortions == " " %}
+                        <p> Avy Detected no Thought Distortions!</p>
+                    
+                    {% else %}
+                        <p> Thought Distortions: {{ object.thought_distortions }}</p>
+                        <p>Count: {{ object.count }}</p>
+                    {% endif %}
+                </div>
+            </div>
                 
-                {% else %}
-                    <p> Thought Distortions: {{ object.thought_distortions }}</p>
-                    <p>{{ object.count }}</p>
-                {% endif %}
-            </div>
+                <a href="{% url 'delete' object.id %}">
+
+                    <button class="button-warning pure-button" value="Confirm" type="submit">
+                        Delete
+                    </button>
+                
+                </a>
         </div>
-            
-            <a href="{% url 'delete' object.id %}">
 
-                <button class="button-warning pure-button" value="Confirm" type="submit">
-                    Delete
-                </button>
-            
-            </a>
     </div>
-
 </div>
-
 
 
 {% endblock %} 
