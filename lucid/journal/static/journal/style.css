@@ -2,7 +2,7 @@ body {
     height: 100%;
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
-    overflow: hidden;
+    overflow: scroll;
     background: #F4F4F4;
 }
 
@@ -18,7 +18,7 @@ button.button-secondary {
 }
 
 button.button-warning {
-    background: rgb(223, 117, 20);
+    background: rgba(254, 93, 38, 1);
 }
 
 /* Journal Page CSS  */
@@ -105,6 +105,7 @@ button.button-warning {
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
+    margin-top: -15px;
     height: 80px;
     width: 100%;
     border-radius: 10px;
@@ -283,6 +284,7 @@ h1 {
     border-bottom-width: 2px;
     border-color: #E2E8F0;
     padding: 20px;
+    font-size: 1em;
 }
 
 .pure-table.custom-table td a:link,
@@ -299,7 +301,7 @@ h1 {
 
 .archive-container {
    background-color: white;
-   height: 80%;
+   height: fit-content;
    border-radius: 15px;
    /* overflow: scroll; */
    box-shadow: 0px 1px 1px 4px rgba(0, 0, 0, 0.02);
@@ -309,52 +311,160 @@ h1 {
 
 
 
-/* Sentiment Page CSS */
-
-.sentiment-container {
-    background-color: white;
-    height: 80%;
-    border-radius: 15px;
-   /* overflow: scroll; */
-    box-shadow: 0px 1px 1px 4px rgba(0, 0, 0, 0.02);
-}
-
-.graph-container  {
-    padding-top: 2em;
-}
-
-.graphone div {
-    margin-top: 25px;
-    margin-left: 100px;
-    border: solid 2px black;
-    width: 900px;
-    height: 800px;
-}
-
-.graphtwo div {
-    margin: 25px;
-    border: solid 2px black;
-    width: 500px;
-    height: 800px;
-}
-
-
-
-
 
 /* Journal entry detail view */
 
-div.journal-detail {
-    padding: 50px;
-    margin: 10px;
+.journal-detail {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 50px;
+    /* padding: 20px; */
+    background-color: white;
+    height: fit-content;
+    border-radius: 15px;
+    overflow: auto;
+    box-shadow: 0px 1px 1px 4px rgba(0, 0, 0, 0.02);
+}
+
+.entry-sidebar {
+    display: grid;
+    align-self: center;
+    grid-template-rows: 50px 50px 2fr 50px;
+    row-gap: 50px;
+    border-right: 5px solid rgba(245, 245, 245, 1);
+    padding:25px
+}
+
+.entry-title {
+   font-size: 0.85em;
+   border-bottom: 5px solid rgba(245, 245, 245, 1);
+   text-align: center;
+}
+
+.entry-sentiment {
+    text-align: center;
+}
+
+.sentiment-title {
+    position: relative;
+    height: 16px;
+    padding: 15px 0;
+    margin-bottom: -10px;
+    z-index: 1px;
+    border-radius: 14.705px;
+    background: #F5F5F5;
+    box-shadow: 0px 3.43112px 5.39176px 0px rgba(0, 0, 0, 0.02);
+    font-weight: bold;
+}
+
+.sentiment-status {
+    height: 25px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin-top: -10px;
+    color: white;
+    border-radius: 14.705px;
+    background: var(--Dark-Blue, linear-gradient(82deg, #313860 2.25%, #151928 79.87%));
+    box-shadow: 0px 3.43112px 5.39176px 0px rgba(0, 0, 0, 0.02);
+}
+
+.entry-distortions {
+    margin-top: 20px;
+    line-height: normal;
+    text-align: center;
+}
+
+.distortion-title {
+    height: 16px;
+    position: relative;
+    padding: 15px 0;
+    margin-bottom: -10px;
+    z-index: 1px;
+    border-radius: 14.705px;
+    background: #F5F5F5;
+    box-shadow: 0px 3.43112px 5.39176px 0px rgba(0, 0, 0, 0.02);
+    font-weight: bold;
+}
+
+.distortion-status {
+    height: fit-content;
+    padding: 20px;
+    margin-top: -10px;
+    color: white;
+    border-radius: 14.705px;
+    background: var(--Dark-Blue, linear-gradient(82deg, #313860 2.25%, #151928 79.87%));
+    box-shadow: 0px 3.43112px 5.39176px 0px rgba(0, 0, 0, 0.02);
+}
+
+.distortion-status-null {
+    height: fit-content;
+    padding: 20px;
+    margin-top: 10px;
+    color: white;
+    border-radius: 14.705px;
+    background: var(--Dark-Blue, linear-gradient(82deg, #313860 2.25%, #151928 79.87%));
+    box-shadow: 0px 3.43112px 5.39176px 0px rgba(0, 0, 0, 0.02);
+}
+
+.distortions-paragraph {
+    padding-top: 10px ;
 }
 
 
-
 div.text-entry {
-    padding-right: 20px;
+    padding-top: 100px;
+    padding-right: 50px;
+    padding-left: 10px;
+    
 }
 
 .entry-analysis {
     padding-left: 1em;
 }
+
+
+
+
+
+
+/* Sentiment Page CSS */
+
+.sentiment-container {
+    background-color: white;
+    height: fit-content;
+    border-radius: 15px;
+   /* overflow: scroll; */
+    box-shadow: 0px 1px 1px 4px rgba(0, 0, 0, 0.02);
+}
+
+.graph-one {
+    grid-area: sentiment;
+}
+
+.graph-two {
+    grid-area: distortions;
+}
+
+.graph-three {
+    grid-area: entries;
+}
+
+.graph-four {
+    grid-area: learning
+}
+
+.graph-container  {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 3fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "sentiment sentiment sentiment distortions"
+        "entries entries . learning";
+    padding-top: 2em;
+}
+
+
+
+
+
+

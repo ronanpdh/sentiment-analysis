@@ -60,10 +60,10 @@ def analyse_journal_entry(content):
    
 
     
-    # Now, the 'sentiment', 'thought_distortions', and 'count' variables contain the parsed content.
-    # print(f'Sentiment: {sentiment}')
-    # print(f'Thought Distortions: {thought_distortions}')
-    # print(f'Count: {count}')
+    # Now, the 'sentiment', 'thought_distortions', and 'count' variables contain the parsed content. Use for checking outcome
+    print(f'Sentiment: {sentiment}')
+    print(f'Thought Distortions: {thought_distortions}')
+    print(f'Count: {count}')
 
     return {
         'sentiment': sentiment,

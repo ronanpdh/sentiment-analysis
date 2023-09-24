@@ -19,37 +19,41 @@
 
 <div class="content">
     <div class="journal-detail">
-        <h2>{{object.title}}</h2>
 
-        <div class="pure-g entry-detail"> 
-            <div class="pure-u-3-5">
-                <div class="text-entry">
-                    <p>{{ object.text_entry }}</p>
+            <div class="entry-sidebar">
+                <div class="entry-title">
+                    <h2>{{object.title}}</h2>
                 </div>
-            </div>
-
-            <div class="pure-u-2-5">
-                <div class="entry-analysis">
-                    <p> Sentiment: {{ object.sentiment }}</p>
-
-                    {% if object.thought_distortions == " " %}
-                        <p> Avy Detected no Thought Distortions!</p>
-                    
+                <div class="entry-sentiment">
+                    <p class="sentiment-title"> Sentiment: </p>
+                    <p class="sentiment-status">{{ object.sentiment }}</p>
+                </div>
+                <div class="entry-distortions">
+                    {% if object.thought_distortions == "{}" %}
+                        <p class="distortion-status-null"> Avy Detected no Thought Distortions!</p>
+              
                     {% else %}
-                        <p> Thought Distortions: {{ object.thought_distortions }}</p>
-                        <p>Count: {{ object.count }}</p>
+                        <p class="distortion-title"> Thought Distortions: </p>
+                        <p class="distortion-status">{{ object.thought_distortions }}</p>
+                        <!-- <p>Count: {{ object.count }}</p> -->
                     {% endif %}
                 </div>
-            </div>
-                
-                <a href="{% url 'delete' object.id %}">
 
-                    <button class="button-warning pure-button" value="Confirm" type="submit">
-                        Delete
-                    </button>
+                <div class="entry-delete">
                 
-                </a>
-        </div>
+                    <a href="{% url 'delete' object.id %}">
+
+                        <button class="button-warning pure-button" value="Confirm" type="submit">
+                            Delete
+                        </button>
+                    
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-entry">
+                    <p>{{ object.text_entry | linebreaks }}</p>
+            </div>
 
     </div>
 </div>
