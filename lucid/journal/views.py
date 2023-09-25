@@ -17,7 +17,8 @@ from django.core.serializers import serialize
 @login_required
 def home(request):
     context = {
-        "name": request.user.username 
+        "name": request.user.username,
+        "email": request.user.email,
     }
     return render(request, "journal/home.html", context)
 

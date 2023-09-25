@@ -19,6 +19,7 @@
 <div class="content">
     {% if user.is_authenticated %}
         <h1>Hi {{ user.username }}, Welcome to your profile</h1>
+       <p>Your current email is {{ user.email }}</p> 
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %} 
             <a href="{% url 'logout' %}">
