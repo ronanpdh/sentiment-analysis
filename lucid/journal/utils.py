@@ -49,6 +49,9 @@ def analyse_journal_entry(content):
                 distortion_type, description = text_entry.split(': ', 1)
                 thought_distortions[distortion_type] = description
 
+    # Clean thought_distortions dictionary 
+    formatted_distortions = '\n'.join(f"{key}: {value}" for key, value in thought_distortions.items())
+
 
     # Extract count of thought distortions and convert to int. Check if str is empty to avoid error
     count_str = lines[-1].split(': ')[0]
@@ -62,11 +65,11 @@ def analyse_journal_entry(content):
     
     # Now, the 'sentiment', 'thought_distortions', and 'count' variables contain the parsed content. Use for checking outcome
     print(f'Sentiment: {sentiment}')
-    print(f'Thought Distortions: {thought_distortions}')
+    print(f'Thought Distortions: {formatted_distortions}')
     print(f'Count: {count}')
 
     return {
         'sentiment': sentiment,
-        'thought-distortions': thought_distortions,
+        'thought-distortions': formatted_distortions,
         'count': count
     }

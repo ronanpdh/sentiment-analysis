@@ -34,7 +34,7 @@
               
                     {% else %}
                         <p class="distortion-title"> Thought Distortions: </p>
-                        <p class="distortion-status">{{ object.thought_distortions }}</p>
+                        <p class="distortion-status">{{ object.thought_distortions|linebreaksbr }}</p>
                         <!-- <p>Count: {{ object.count }}</p> -->
                     {% endif %}
                 </div>
