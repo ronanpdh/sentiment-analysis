@@ -16,7 +16,7 @@ def analyse_journal_entry(content):
         messages=[
             {
                 "role": "system",
-                "content": "You will be given a journal entry, your First task is to clasify its sentiment as positive, neutral or negative. Your second task is to recognise thought distortions, output them and count how many there were in the text. "
+                "content": "You will be given a journal entry, your First task is to clasify its sentiment as positive, neutral or negative. Your second task is to recognise thought distortions, output them and count how many there were in the text."
             },
             {
                 "role": "user", 
@@ -53,6 +53,11 @@ def analyse_journal_entry(content):
     formatted_distortions = '\n'.join(f"{key}: {value}" for key, value in thought_distortions.items())
 
 
+    #  Store Thought Distortion types in a list to output into journal Entry detail view
+    thought_distortions_keys = thought_distortions.keys()
+    keys_list = list(thought_distortions_keys)
+    keys_formatted = ','.join(keys_list)
+    
     # Extract count of thought distortions and convert to int. Check if str is empty to avoid error
     count_str = lines[-1].split(': ')[0]
 
@@ -66,10 +71,11 @@ def analyse_journal_entry(content):
     # Now, the 'sentiment', 'thought_distortions', and 'count' variables contain the parsed content. Use for checking outcome
     print(f'Sentiment: {sentiment}')
     print(f'Thought Distortions: {formatted_distortions}')
-    print(f'Count: {count}')
+    print(f'keys: {keys_formatted}')
 
     return {
         'sentiment': sentiment,
         'thought-distortions': formatted_distortions,
+        'distortion-types': keys_formatted,
         'count': count
     }

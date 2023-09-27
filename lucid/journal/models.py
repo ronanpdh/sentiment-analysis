@@ -25,6 +25,7 @@ class JournalEntry(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     sentiment = models.CharField(max_length=30, null=True, blank=True)
     thought_distortions = models.CharField(max_length=30, null=True, blank=True)
+    thought_distortion_type = models.CharField(max_length=30, null=True, blank=True)
     count = models.IntegerField(null=True, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

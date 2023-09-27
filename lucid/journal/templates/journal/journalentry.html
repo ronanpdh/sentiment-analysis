@@ -31,10 +31,10 @@
                 <div class="entry-distortions">
                     {% if object.thought_distortions == "{}" %}
                         <p class="distortion-status-null"> Avy Detected no Thought Distortions!</p>
-              
                     {% else %}
                         <p class="distortion-title"> Thought Distortions: </p>
-                        <p class="distortion-status">{{ object.thought_distortions|linebreaksbr }}</p>
+                        <!-- <a href="{% url}" inset a tag to direct usr to new view of analysed text, created new template and view for this -->
+                        <p class="distortion-status">{{ object.thought_distortion_type|linebreaksbr }}</p>
                         <!-- <p>Count: {{ object.count }}</p> -->
                     {% endif %}
                 </div>

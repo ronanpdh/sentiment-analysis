@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView, DeleteView
 from .models import JournalEntry, CustomUser
 from .forms import CreateJournalEntry
 from .utils import analyse_journal_entry
-from django.core.serializers import serialize
+
 
 
 # Home View
@@ -70,6 +70,7 @@ def journal(request):
             journal_entry.text_entry = request.POST["text_entry"]
             journal_entry.sentiment = analysed_text['sentiment']
             journal_entry.thought_distortions = analysed_text['thought-distortions']
+            journal_entry.thought_distortion_type = analysed_text['distortion-types']
             journal_entry.count = analysed_text['count']
             journal_entry.save()
             return redirect('journallist')
@@ -82,25 +83,28 @@ def journal(request):
 
 
 # Create ListView class for Archive 
-
 class JournalEntryList(LoginRequiredMixin,ListView):
     model = JournalEntry
     template_name = 'journal/journallist.html'
     context_object_name = 'entries'
-    fields =("text_entry", "date", "sentiment", "user_name")
+    fields = ("text_entry", "date", "sentiment", "user_name")
     ordering = ['-date']
 
 
 
-# Views to allow users to go into a jounral entry and view or delete 
-
+# Views to allow users to go into a journal entry and view or delete 
 class JournalEntryDetailView(LoginRequiredMixin, DetailView):
     model = JournalEntry
     template_name = 'journal/journalentry.html'
+    context_object_name = 'distortion_types'
+    fields = ("thought_distortion_type")
+
+
+# View to allow user to expand thought distortion types and see analysed text
+
 
 
 # Delete View
-
 class JournalDeleteView(LoginRequiredMixin, DeleteView):
     model = JournalEntry
     success_url = reverse_lazy('journallist')
@@ -108,7 +112,6 @@ class JournalDeleteView(LoginRequiredMixin, DeleteView):
 
 
 #Sentiment View
-
 sentiment_data = "Sentiment"
 @login_required
 def sentiment(request):
