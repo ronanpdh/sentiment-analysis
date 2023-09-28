@@ -101,7 +101,11 @@ class JournalEntryDetailView(LoginRequiredMixin, DetailView):
 
 
 # View to allow user to expand thought distortion types and see analysed text
-
+class ExpandDetailView(LoginRequiredMixin, DetailView):
+    model = JournalEntry
+    template_name = 'journal/journalentrydetail.html'
+    context_object_name = 'detail_view'
+    fields = ('distortion_type', 'thought_distortions')
 
 
 # Delete View

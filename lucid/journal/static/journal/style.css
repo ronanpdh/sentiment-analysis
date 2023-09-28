@@ -22,6 +22,10 @@ button.button-warning {
     background: rgba(254, 93, 38, 1);
 }
 
+button.button-secondary {
+    background: #74C69D;
+}
+
 /* Journal Page CSS  */
 
 

@@ -3,6 +3,7 @@
 {% extends "journal/base.html" %}
 {% load static %}
 
+
 <!-- Head block -->
 
 {% block head %}
@@ -33,15 +34,9 @@
                         <p class="distortion-status-null"> Avy Detected no Thought Distortions!</p>
                     {% else %}
                         <p class="distortion-title"> Thought Distortions: </p>
-                        <!-- <a href="{% url}" insert a tag to direct usr to new view of analysed text, created new template and view for this -->
                         <p class="distortion-status">{{ object.thought_distortion_type|linebreaksbr }}</p>
                         <!-- <p>Count: {{ object.count }}</p> -->
                     {% endif %}
-                    <a href="{% url 'journaldetailview' object.id %}">
-                        <button class="button-secondary pure-button" type="submit">
-                            Expand
-                        </button>
-                    </a>
                 </div>
 
                 <div class="entry-delete">
@@ -57,11 +52,10 @@
             </div>
 
             <div class="text-entry">
-                    <p>{{ object.text_entry | linebreaks }}</p>
+                    <p>{{ object.thought_distortions | linebreaksbr }}</p>
             </div>
-
+                <!-- Insert back button -->
     </div>
 </div>
-
 
 {% endblock %} 
