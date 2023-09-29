@@ -3,10 +3,16 @@ from .models import JournalEntry, CustomUser
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
-class CustomUserCreationForm(UserCreationForm):
+# class CustomUserCreationForm(UserCreationForm):
+#     class Meta:
+#         model = CustomUser
+#         fields = ("first_name", "last_name", "username", "email", "password")
+
+
+class SignUpForm(UserCreationForm):
     class Meta:
-        model = CustomUser
-        fields = ("first_name", "last_name", "username", "email", "password")
+        model=CustomUser
+        fields = ['username', 'email', 'password1', 'password2']
 
 
 class CustomUserChangeForm(UserChangeForm):

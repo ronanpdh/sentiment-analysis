@@ -1,14 +1,18 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect
-from .forms import CustomUserCreationForm
+
+# from .forms import CustomUserCreationForm
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView
+from django.contrib import messages
 from .models import JournalEntry, CustomUser
-from .forms import CreateJournalEntry
+from .forms import CreateJournalEntry, SignUpForm
 from .utils import analyse_journal_entry
 
 
@@ -22,19 +26,37 @@ def home(request):
     return render(request, "journal/home.html", context)
 
 
-# Sign Up View
-class SignUp(CreateView):
-    model = CustomUser
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy("registration/login.html")
-    template_name = "registration/signup.html"
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
-
-
 # Create new advanced sign up view for registration. Double check model and form to ensure functionality.
+
+# Sign Up View
+# class SignUp(CreateView):
+#     model = CustomUser
+#     form_class = CustomUserCreationForm
+#     success_url = reverse_lazy("registration/login.html")
+#     template_name = "registration/signup.html"
+
+#     def form_valid(self, form):
+#         form.save()
+#         return super().form_valid(form)
+
+
+def sign_up(request):
+    if request.method == "GET":
+        form = SignUpForm()
+    elif request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            messages.success(request, "You've signed up successfully!")
+            login(request, user)
+            return redirect("home")
+    else:
+        # This block will not be reached under normal circumstances
+        form = SignUpForm()
+
+    return render(request, "registration/signup.html", {"form": form})
 
 
 # Profile View
@@ -59,9 +81,10 @@ def journal(request):
     if request.method == "POST":
         form = CreateJournalEntry(request.POST)
         if form.is_valid():
+            journal_entry = JournalEntry()
+            journal_entry.user = request.user
             text_entry = request.POST["text_entry"]
             analysed_text = analyse_journal_entry(text_entry)
-            journal_entry = JournalEntry()
             journal_entry.title = request.POST["title"]
             journal_entry.text_entry = request.POST["text_entry"]
             journal_entry.sentiment = analysed_text["sentiment"]
@@ -80,8 +103,11 @@ class JournalEntryList(LoginRequiredMixin, ListView):
     model = JournalEntry
     template_name = "journal/journallist.html"
     context_object_name = "entries"
-    fields = ("text_entry", "date", "sentiment", "user_name")
+    # fields = ("text_entry", "date", "sentiment", "user_name")
     ordering = ["-date"]
+
+    def get_queryset(self):
+        return JournalEntry.objects.filter(user=self.request.user).order_by("-date")
 
 
 # Views to allow users to go into a journal entry and view or delete
@@ -89,7 +115,10 @@ class JournalEntryDetailView(LoginRequiredMixin, DetailView):
     model = JournalEntry
     template_name = "journal/journalentry.html"
     context_object_name = "distortion_types"
-    fields = "thought_distortion_type"
+    # fields = "thought_distortion_type"
+
+    def get_queryset(self):
+        return JournalEntry.objects.filter(user=self.request.user)
 
 
 # View to allow user to expand thought distortion types and see analysed text
@@ -97,7 +126,10 @@ class ExpandDetailView(LoginRequiredMixin, DetailView):
     model = JournalEntry
     template_name = "journal/journalentrydetail.html"
     context_object_name = "detail_view"
-    fields = ("distortion_type", "thought_distortions")
+    # fields = ("distortion_type", "thought_distortions")
+
+    def get_queryset(self):
+        return JournalEntry.objects.filter(user=self.request.user)
 
 
 # Delete View
@@ -105,6 +137,9 @@ class JournalDeleteView(LoginRequiredMixin, DeleteView):
     model = JournalEntry
     success_url = reverse_lazy("journallist")
     template_name = "journal/confirm_delete.html"
+
+    def get_queryset(self):
+        return JournalEntry.objects.filter(user=self.request.user)
 
 
 # Sentiment View
