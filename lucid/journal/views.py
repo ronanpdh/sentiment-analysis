@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, DeleteView
 from django.contrib import messages
 from .models import JournalEntry, CustomUser
 from .forms import CreateJournalEntry, SignUpForm
-from .utils import analyse_journal_entry
+from .utils import analyse_journal_entry, format_content
 
 
 # Home View
@@ -84,13 +84,14 @@ def journal(request):
             journal_entry = JournalEntry()
             journal_entry.user = request.user
             text_entry = request.POST["text_entry"]
-            analysed_text = analyse_journal_entry(text_entry)
             journal_entry.title = request.POST["title"]
             journal_entry.text_entry = request.POST["text_entry"]
-            journal_entry.sentiment = analysed_text["sentiment"]
-            journal_entry.thought_distortions = analysed_text["thought-distortions"]
-            journal_entry.thought_distortion_type = analysed_text["distortion-types"]
-            journal_entry.count = analysed_text["count"]
+            analysed_text = analyse_journal_entry(text_entry)
+            formatted_text = format_content(analysed_text)
+            journal_entry.sentiment = formatted_text["sentiment"]
+            journal_entry.thought_distortions = formatted_text["thought-distortions"]
+            journal_entry.thought_distortion_type = formatted_text["distortion-types"]
+            journal_entry.count = formatted_text["count"]
             journal_entry.save()
             return redirect("journallist")
     else:
@@ -130,6 +131,14 @@ class ExpandDetailView(LoginRequiredMixin, DetailView):
 
     def get_queryset(self):
         return JournalEntry.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        journal_entry = self.object
+        thought_distortions_str = journal_entry.thought_distortions
+        thought_distortions_list = thought_distortions_str.split(", ")
+        context["thought_distortions_list"] = thought_distortions_list
+        return context
 
 
 # Delete View

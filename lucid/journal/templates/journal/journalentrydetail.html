@@ -52,9 +52,13 @@
             </div>
 
             <div class="text-entry">
-                    <p>{{ object.thought_distortions | linebreaksbr }}</p>
+                <ul>
+                    {% for sentence in thought_distortions_list %}
+                        <li>{{ sentence }}</li></br>
+                    {% endfor %}
+                </ul>
             </div>
-                <!-- Insert back button -->
+            
     </div>
 </div>
 

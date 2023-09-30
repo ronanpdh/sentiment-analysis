@@ -22,7 +22,7 @@ class CustomUser(AbstractUser):
 
 class JournalEntry(models.Model):
     text_entry = models.TextField()
-    title = models.CharField(max_length=300, default="New Entry")
+    title = models.CharField(max_length=300, default="")
     date = models.DateTimeField(auto_now_add=True, db_index=True)
     sentiment = models.CharField(max_length=30, null=True, blank=True)
     thought_distortions = models.CharField(max_length=30, null=True, blank=True)
