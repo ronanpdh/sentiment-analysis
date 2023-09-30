@@ -33,8 +33,13 @@ def analyse_journal_entry(content):
     # Split by line breaks
     lines = content_message.split("\n")
 
-    # Extract sentiment
-    sentiment = lines[0].split(": ")[1]
+    # Extract sentiment - Use IF statement to handle the index error if the journal entry isn't long enough
+    # sentiment = lines[0].split(": ")[1]
+    if len(lines) > 1:
+        sentiment = lines[0].split(": ")[1]
+    else:
+        sentiment = "N/A"
+        pass 
 
     # Extract thought distortions and descriptions
     thought_distortions = {}
