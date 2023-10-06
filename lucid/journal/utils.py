@@ -68,7 +68,7 @@ def format_content(analysed_text):
     #  Store Thought Distortion types in a list to output into journal Entry detail view
     thought_distortions_keys = thought_distortions.keys()
     keys_list = list(thought_distortions_keys)
-    keys_formatted = ",".join(keys_list)
+    keys_formatted = ", ".join(keys_list)
 
     # Extract count of thought distortions and convert to int. Check if str is empty to avoid error
     count_str = lines[-1].split(": ")[1]

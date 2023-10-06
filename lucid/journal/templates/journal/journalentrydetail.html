@@ -7,59 +7,65 @@
 <!-- Head block -->
 
 {% block head %}
-    <link rel="stylesheet" href="{%static 'journal/style.css'%}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,600;1,200&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{%static 'journal/style.css'%}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+    integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,600;1,200&display=swap"
+    rel="stylesheet">
 {% endblock %}
 
 
 <!-- Main Content -->
-{% block content %} 
+{% block content %}
 
 <div class="content">
     <div class="journal-detail">
-
-            <div class="entry-sidebar">
-                <div class="entry-title">
-                    <h2>{{object.title}}</h2>
-                </div>
-                <div class="entry-sentiment">
-                    <p class="sentiment-title"> Sentiment: </p>
-                    <p class="sentiment-status">{{ object.sentiment }}</p>
-                </div>
-                <div class="entry-distortions">
-                    {% if object.thought_distortions == "{}" %}
-                        <p class="distortion-status-null"> Avy Detected no Thought Distortions!</p>
-                    {% else %}
-                        <p class="distortion-title"> Thought Distortions: </p>
-                        <p class="distortion-status">{{ object.thought_distortion_type|linebreaksbr }}</p>
-                        <!-- <p>Count: {{ object.count }}</p> -->
-                    {% endif %}
-                </div>
-
-                <div class="entry-delete">
-                
-                    <a href="{% url 'delete' object.id %}">
-
-                        <button class="button-warning pure-button" value="Confirm" type="submit">
-                            Delete
-                        </button>
-                    
-                    </a>
-                </div>
+        <div class="entry-sidebar">
+            <div class="entry-title">
+                <h2>{{object.title}}</h2>
+            </div>
+            <div class="entry-sentiment">
+                <p class="sentiment-title"> Sentiment: </p>
+                <p class="sentiment-status">{{ object.sentiment }}</p>
+            </div>
+            <div class="entry-distortions">
+                {% if object.thought_distortions == "{}" %}
+                <p class="distortion-status-null"> Avy Detected no Thought Distortions!</p>
+                {% else %}
+                <p class="distortion-title"> Thought Distortions: </p>
+                <p class="distortion-status">{{ object.thought_distortion_type|linebreaksbr }}</p>
+                <!-- <p>Count: {{ object.count }}</p> -->
+                {% endif %}
             </div>
 
-            <div class="text-entry">
-                <ul>
-                    {% for sentence in thought_distortions_list %}
-                        <li>{{ sentence }}</li></br>
-                    {% endfor %}
-                </ul>
+            <div class="entry-delete">
+
+                <a href="{% url 'delete' object.id %}">
+
+                    <button class="button-warning pure-button" value="Confirm" type="submit">
+                        Delete
+                    </button>
+
+                </a>
             </div>
-            
+            <div class="back">
+                <a href="{% url 'journalentry' object.id %}">
+                    <button class="button-secondary pure-button" value="Confirm" type="submit"> Back </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="text-entry">
+            <ul>
+                {% for sentence in thought_distortions_list %}
+                <li>{{ sentence }}</li></br>
+                {% endfor %}
+            </ul>
+        </div>
+
     </div>
 </div>
 
-{% endblock %} 
+{% endblock %}
