@@ -6,13 +6,14 @@ from django.shortcuts import redirect
 
 # from .forms import CustomUserCreationForm
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import DeleteView
 from django.contrib import messages
-from .models import JournalEntry, CustomUser
-from .forms import CreateJournalEntry, SignUpForm
+from .models import JournalEntry
+from .forms import CreateJournalEntry, SignUpForm, EmailChangeForm, PasswordChangeForm
 from .utils import analyse_journal_entry, format_content
 
 
@@ -26,19 +27,7 @@ def home(request):
     return render(request, "journal/home.html", context)
 
 
-# Create new advanced sign up view for registration. Double check model and form to ensure functionality.
-
-# Sign Up View
-# class SignUp(CreateView):
-#     model = CustomUser
-#     form_class = CustomUserCreationForm
-#     success_url = reverse_lazy("registration/login.html")
-#     template_name = "registration/signup.html"
-
-#     def form_valid(self, form):
-#         form.save()
-#         return super().form_valid(form)
-
+# Create new advanced sign up view for registration. Double check model and form to ensure functionality
 
 def sign_up(request):
     if request.method == "GET":
@@ -65,8 +54,35 @@ def profile(request):
     context = {"name": request.user.username}
     return render(request, "journal/profile.html", context)
 
+# User Information Change Forms
+@login_required
+def change_email(request):
+    if request.method == "POST":
+        form = EmailChangeForm(request.POST)
+        if form.is_valid():
+            request.user.email = form.cleaned_data['email']
+            request.user.save()
+            return redirect('profile')
+    else: 
+        form = EmailChangeForm
+    return render(request, 'journal/emailchange.html', {'form': form})
 
-# Login view
+
+
+# Password Change Form
+@login_required
+def change_password(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+        update_session_auth_hash(request, form.user)
+        return redirect('profile')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    return render(request, 'journal/passwordchange.html', {'form': form})
+
+
 
 
 # Log out View

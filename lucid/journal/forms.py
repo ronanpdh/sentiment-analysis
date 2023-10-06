@@ -1,6 +1,6 @@
 from django import forms
 from .models import JournalEntry, CustomUser
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 
 
 # class CustomUserCreationForm(UserCreationForm):
@@ -44,3 +44,11 @@ class CreateJournalEntry(forms.ModelForm):
         self.fields["text_entry"].widget.attrs[
             "placeholder"
         ] = "Start Typing, thoughts, feelings, whatever you like"
+
+
+# Email and Password Change forms
+class EmailChangeForm(forms.Form):
+    email = forms.EmailField(label="New Email Address")
+
+class PasswordChangeForm(PasswordChangeForm):
+    pass
