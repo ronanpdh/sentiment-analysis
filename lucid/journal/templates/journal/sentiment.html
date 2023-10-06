@@ -21,7 +21,12 @@
 <div class="content">
     <div class="toolbar">
         <a href="">Search</a>
-        <a href="">Sign Out</a>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <a href="{% url 'logout' %}">
+                <button class="pure-button button-logout" type="submit">Sign Out</button>
+            </a>
+        </form>
     </div>
 
     <div class="sentiment-container">

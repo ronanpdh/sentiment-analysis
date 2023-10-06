@@ -12,7 +12,8 @@ body {
 button.button-success,
 button.button-error,
 button.button-warning,
-button.button-secondary {
+button.button-secondary ,
+button.button-logout {
     color: white;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
@@ -24,6 +25,14 @@ button.button-warning {
 
 button.button-secondary {
     background: #74C69D;
+}
+
+button.button-logout {
+    background-color: transparent;
+}
+
+button.button-logout:hover {
+    background-color: rgb(60, 60, 60);
 }
 
 /* Journal Page CSS  */
@@ -472,3 +481,42 @@ div.text-entry {
 }
 
 /* Profile page */
+.container {
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.profile-image img {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+.name-title h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.bio {
+    padding: 20px;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+}
