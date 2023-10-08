@@ -46,7 +46,7 @@
                 </form>
             </div>
             <div class="password-change">
-                <form method="post">
+                <form method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <a href="{% url 'change_password' %}" class="pure-menu-link">Change Password</a>

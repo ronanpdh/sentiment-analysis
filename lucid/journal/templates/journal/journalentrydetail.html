@@ -60,7 +60,9 @@
         <div class="text-entry">
             <ul>
                 {% for sentence in thought_distortions_list %}
-                <li>{{ sentence }}</li></br>
+                    <li>{{ sentence }}</li></br>
+                {% empty %}
+                    <li>No thought distortions here!</li>
                 {% endfor %}
             </ul>
         </div>
