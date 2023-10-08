@@ -59,11 +59,15 @@ def format_content(analysed_text):
     formatted_distortions = "\n".join(
         f"{key}: {value}" for key, value in thought_distortions.items()
     )
-    
+    # Use NLTK to tokenize sentences 
     sentences = nltk.sent_tokenize(formatted_distortions)
-    print(sentences)
-    print(type(sentences))
 
+    # Strip comma's out of each string in the list and save to a new list, then remove brackts for output. Then use join to turn to a string for output.
+    formatted_sentences_list = []
+    for str in sentences:
+        sentence_strip = str.replace(",", "")
+        formatted_sentences_list.append(sentence_strip)
+        values_formatted = ", ".join(formatted_sentences_list)
 
     #  Store Thought Distortion types in a list to output into journal Entry detail view
     thought_distortions_keys = thought_distortions.keys()
@@ -77,19 +81,11 @@ def format_content(analysed_text):
     else:
         count = int(count_str)
 
-    # Now, the 'sentiment', 'thought_distortions', and 'count' variables contain the parsed content. Use for checking outcome
-    # print(f"Sentiment: {sentiment}")
-    # print(f"Thought Distortions: {formatted_distortions}")
-    # print(f"keys: {keys_formatted}")
-
+    #  Return object for outputting to front end
     return {
         "sentiment": sentiment,
-        "thought-distortions": sentences,
+        "thought-distortions": values_formatted,
         "distortion-types": keys_formatted,
         "count": count,
     }
 
-# #    Use NLTK sentence tokenizer to seperate sentences in thought disortions - This will improve flexibiliyy and output on front end
-# def distortion_sentence_tokenizer(thought_distortions):
-#     sentences = nltk.sent_tokenize(thought_distortions)
-#     return sentences
