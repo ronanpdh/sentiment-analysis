@@ -515,8 +515,20 @@ div.text-entry {
     gap: 10px;
 }
 
+/* Media Queries  */
+
 @media (max-width: 600px) {
     .container {
         padding: 10px;
     }
+}
+
+
+/* Prompt Generator Styling */
+#prompt {
+    color: #151928;
+}
+
+.prompt-container {
+    display: inline;
 }
