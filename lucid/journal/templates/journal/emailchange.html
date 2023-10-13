@@ -32,13 +32,13 @@
                 <p>Your email is {{ user.email }}</p> 
             </div>
             <div class="changeemail">
-                <h2>Change your Password</h2>
+                <h2>Change your Email</h2>
             </div>
-            <div class="password-change">
-                <form method="post">
+            <div class="email-change">
+                <form method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit">Change Password</button>
+                    <button type="submit">Change Email</button>
                 </form>
             </div>
     {% endif %}  
