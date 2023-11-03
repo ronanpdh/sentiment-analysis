@@ -12,7 +12,7 @@ body {
 button.button-success,
 button.button-error,
 button.button-warning,
-button.button-secondary ,
+button.button-secondary,
 button.button-logout {
     color: white;
     border-radius: 4px;
@@ -45,6 +45,7 @@ button.button-logout:hover {
 #menu {
     margin-right: 50px;
     width: 150px;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -52,7 +53,11 @@ button.button-logout:hover {
     padding: 1em;
     z-index: 1000;
     background: rgba(255, 255, 255, 0.2);
-    overflow-y: auto;
+    overflow-y: none;
+    display: flex; 
+    flex-direction: column; 
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 #menu img {
@@ -60,12 +65,6 @@ button.button-logout:hover {
     height: auto;
     padding: 10px;
 }
-
-/* .pure-menu {
-    min-height: 50px;
-    background-color: #84A98C;
-    padding: 0.5em;
-} */
 
 .pure-menu a {
     color: black;
@@ -75,30 +74,31 @@ button.button-logout:hover {
     margin-top: 20px;
 }
 
-/* nav-menu {
-    display: inline-block;
-}
-   */
 .nav-item {
     flex: 1;
     text-align: center;
 }
-
 
 #menu .pure-menu-link:hover {
     background-color: transparent;
     color: #EE6C4D;
 }
 
-
-
 .pure-menu-heading {
     border-radius: 15px;
-    background: var(--black-amp-white-white, #FFF);
-    box-shadow: 0px 3.5px 5.5px 0px rgba(0, 0, 0, 0.02);
+    background: url("/static/img/toolbar-styling-overlay.png");
+    background-blend-mode: overlay, normal;
+    background-repeat: no-repeat;
+    box-shadow: 0px 1px 1px 4px rgba(0, 0, 0, 0.02);
 }
 
+a.pure-menu-heading {
+    color: white;
+}
 
+.menu-logo {
+    align-items: end;
+}
 
 
 
@@ -138,7 +138,14 @@ button.button-logout:hover {
 }
 
 
-
+/* Home Page Styling */
+.home-container {
+    background-color: white;
+    height: 100vh;
+    border-radius: 15px;
+    /* overflow: scroll; */
+    box-shadow: 0px 1px 1px 4px rgba(0, 0, 0, 0.02);
+}
 
 
 
@@ -209,9 +216,6 @@ input::placeholder {
     color: black;
 }
 
-
-
-
 textarea {
     font-family: 'Raleway', sans-serif;
     font-weight: 500;
@@ -268,9 +272,8 @@ textarea::placeholder {
 
 /* Archive CSS Styles */
 
-h1 {
-    margin: 25px;
-    padding: 25px;
+.archive-header {
+    padding: 20px;
 }
 
 .archive {
@@ -483,15 +486,16 @@ div.text-entry {
 }
 
 /* Profile page */
-.container {
+.profile-container {
     display: grid;
     grid-template-rows: auto auto auto 1fr auto;
     max-width: 100%;
     margin: 0 auto;
     padding: 20px;
     gap: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .profile-image img {
     width: 100%;
     max-width: 200px;
@@ -505,17 +509,8 @@ div.text-entry {
     margin-bottom: 10px;
 }
 
-.bio {
-    padding: 20px;
-    border: 1px solid #ccc;
-    overflow-y: auto;
-}
 
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
+
 
 /* Media Queries  */
 

@@ -18,13 +18,9 @@
 
         <div id="menu">
             <div class="pure-menu">
-                <a class="pure-menu-heading" href="#Avy">AVY</a>
+                <a class="pure-menu-heading" href="{% url 'home' %}">AVY</a>
 
                 <ul class="pure-menu-list">
-                    <li class=" pure-menu-item logo">
-                        <a class="logo-container" href="{% url 'home' %}" class="pure-menu-link"><img src="{% static 'img/logo.png' %}" alt="Journal"></a>
-                    </li>
-
                     <li class="pure-menu-item">
                         <a href="{% url 'journal' %}" class="pure-menu-link">Journal</a>
                     </li>
@@ -38,6 +34,9 @@
                         <a href="{% url 'profile' %}" class="pure-menu-link">Profile</a>
                     </li>
                 </ul>
+            </div>
+            <div class="menu-logo">
+                <img src="{% static 'img/logo.png' %}" alt="Journal">
             </div>
         </div>
   

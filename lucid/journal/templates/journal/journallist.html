@@ -20,7 +20,6 @@
 
 <div class="content">
     <div class="toolbar">
-        <a href="">Search</a>
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <a href="{% url 'logout' %}">
@@ -30,7 +29,7 @@
     </div>
 
     <div class="archive-container">
-        <h1>Archive</h1>
+        <h1 class="archive-header">Archive</h1>
 
         <div class="pure-g pure-u-5-5 archive">
             <table class="pure-table pure-table-horizontal custom-table">
