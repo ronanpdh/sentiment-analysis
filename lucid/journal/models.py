@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
-import jsonfield
+
 
 
 # Create your models here.
@@ -64,6 +64,6 @@ class SentimentAnalysis(models.Model):
 
 # Model for Thought Distortions - better access for analysis page
 class ThoughtDistortion(models.Model):
-    type = models.CharField(max_length=30)
+    distortion_type = models.CharField(max_length=30)
     description = models.TextField()
-    journal_entry = models.OneToOneField(JournalEntry, on_delete=models.CASCADE)
+    journal_entry = models.ForeignKey(JournalEntry, on_delete=models.CASCADE)

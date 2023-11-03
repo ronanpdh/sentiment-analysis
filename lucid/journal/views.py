@@ -12,9 +12,15 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import DeleteView
 from django.contrib import messages
-from .models import JournalEntry
+from .models import JournalEntry, ThoughtDistortion
 from .forms import CreateJournalEntry, SignUpForm, EmailChangeForm, PasswordChangeForm
 from .utils import analyse_journal_entry, format_content
+
+# Imports for organising chart data 
+from collections import OrderedDict
+from django.db.models import Count
+from django.db.models.functions import ExtractMonth
+import json
 
 
 # Home View
@@ -167,11 +173,31 @@ class JournalDeleteView(LoginRequiredMixin, DeleteView):
         return JournalEntry.objects.filter(user=self.request.user)
 
 
-# Sentiment View
-sentiment_data = "Sentiment"
-
-
+# Analytics View
 @login_required
 def sentiment(request):
-    context = {"sentiment_data": sentiment_data}
-    return render(request, "journal/sentiment.html", context)
+    # Gather Data from models and order
+    entries_by_date = (
+        JournalEntry.objects.filter(user=request.user)
+        .annotate(month=ExtractMonth('date'))
+        .values('month')
+        .annotate(count=Count('id'))
+        .order_by('month')
+    )
+
+    # Organise data for ChartJs
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    counts = [0] * 12 
+    for entry in entries_by_date:
+        counts[entry['month'] -1 ] = entry['count']
+    data = {
+        'labels': months,
+        'datasets': [{
+            'label': 'Journal Entries',
+            'borderColor': 'rgb(75, 192, 192)',
+            'tension': 0.5, 
+            'data': counts,
+        }]
+    }
+    data_json = json.dumps(data)
+    return render(request, "journal/sentiment.html", {'data': data_json})

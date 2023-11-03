@@ -11,55 +11,98 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,600;1,200&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js">
 {% endblock %}
 
 
 <!-- Main content block -->
 
 {% block content %}
+<body>
+    <div class="content">
+        <div class="toolbar">
+            <a href="">Search</a>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <a href="{% url 'logout' %}">
+                    <button class="pure-button button-logout" type="submit">Sign Out</button>
+                </a>
+            </form>
+        </div>
 
-<div class="content">
-    <div class="toolbar">
-        <a href="">Search</a>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <a href="{% url 'logout' %}">
-                <button class="pure-button button-logout" type="submit">Sign Out</button>
-            </a>
-        </form>
-    </div>
+        <div class="sentiment-container">
+            <div class="pure-g pure-u-5-5 ">
+                <div class="graph-container">
+                    <div class="graph-one">
+                        
 
-    <div class="sentiment-container">
-        <div class="pure-g pure-u-5-5 ">
-            <div class="graph-container">
-                <div class="graph-one">
-                    <img src="/static/img/Second Card.png">
-
-                </div>
-
-                <div class="graph-two">
-
-                </div>
-
-                <div class="graph-three">
-                    <img src="/static/img/Second Card.png">
-                </div>
-
-                <div class="graph-four">
-
-                    <div class="learning">
-                        <p>Learning section</p>
                     </div>
 
-                </div>
-                    
-            </div>
+                    <div class="graph-two">
 
-                     
+                    </div>
+
+                    <div class="graph-three">
+                        <canvas id="chartContainer"></canvas>
+                    </div>
+
+                    <div class="graph-four">
+
+
+                        <div class="learning">
+                            <p>Learning section</p>
+                        </div>
+
+                    </div>
+                        
+                </div>
+
+                        
+                </div>
             </div>
         </div>
     </div>
-</div>
+    {% block scripts%}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('chartContainer');
+    let data = '{{ data|safe }}';  
+    data = JSON.parse(data);  
+
+    new Chart(ctx, {  
+        type: 'line',
+        data: data,
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Months'
+                    }
+                },
+                y: {
+                    beginAtZero: true, 
+                    title: {
+                        display: true,
+                        text: 'Number of Entries'
+                    }
+                }
+            }, 
+            responsive: true,
+            plugins: {  
+                legend: {  
+                    position: 'top',
+                },
+                title: {  
+                    display: true,
+                    text: 'Journal Entries'
+                }
+            }
+        },
+    });
+</script>
+{%endblock%}
+</body>
 
 {% endblock %}
 
