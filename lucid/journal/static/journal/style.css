@@ -40,8 +40,6 @@ button.button-logout:hover {
 
 
 /* Nav/menu */
-
-
 #menu {
     margin-right: 50px;
     width: 150px;
@@ -99,7 +97,6 @@ a.pure-menu-heading {
 .menu-logo {
     align-items: end;
 }
-
 
 
 
@@ -276,7 +273,7 @@ textarea::placeholder {
 
 /* Archive CSS Styles */
 
-.archive-header {
+.header {
     padding: 20px;
 }
 
@@ -451,8 +448,9 @@ div.text-entry {
 
 
 
-/* Sentiment Page CSS */
+/* Analytics Page CSS */
 
+/* Graph Layout */
 .sentiment-container {
     background-color: white;
     height: fit-content;
@@ -473,34 +471,6 @@ div.text-entry {
     grid-area: entries;
 }
 
-.learning-one {
-    grid-area: l1;
-}
-.learning-two {
-    grid-area: l2;
-}
-.learning-three {
-    grid-area: l3;
-}
-.learning-four {
-    grid-area: l4;
-}
-.learning-five {
-    grid-area: l5;
-}
-
-
-.graph-four {
-    grid-area: learning;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-areas:
-        "learning learning learning"
-        "l1 l1 l2"
-        "l3 l4 l5"
-}
-
 .graph-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -512,6 +482,88 @@ div.text-entry {
     padding: 2em;
     gap: 25px;
 }
+
+/* Learning Resources */
+
+.learning-title {
+    grid-area: learning;
+    height: min-content;
+}
+
+.learning-one {
+    grid-area: l1;
+    background-image: url('/static/img/Mind\ Squiggle\ Wordmark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:auto;
+}
+.learning-two {
+    grid-area: l2;
+    background-image: url('/static/img/Headspace\ logo.svg');
+    background-repeat:no-repeat;
+    background-position: center; 
+    background-size:contain;
+}
+.learning-three {
+    grid-area: l3;
+    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+    background-repeat:no-repeat;
+    background-position: center; 
+    background-size:contain;
+    color: white;
+}
+
+.learning-four {
+    grid-area: l4;
+    background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
+    color: white;
+}
+.learning-five {
+    grid-area: l5;
+    background-image: url('/static/img/logo.png');
+    background-repeat:no-repeat;
+    background-position: center; 
+    background-size:contain;
+}
+
+.learning-container {
+    margin: 0;
+}
+
+.resource {
+    background-color: white;
+    height: 250px;
+    border-radius: 15px;
+    box-shadow: 0px 1px 1px 4px rgba(0, 0, 0, 0.02);
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.resource a {
+    text-decoration: none;
+    color:#313860;
+}
+
+.resource a:visited {
+    text-decoration: none;
+}
+
+.graph-four {
+    grid-area: learning;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+        "learning learning learning"
+        "l1 l1 l2"
+        "l3 l4 l5"; 
+    gap: 25px;
+}
+
+
 
 
 
@@ -558,4 +610,5 @@ div.text-entry {
 
 .prompt-container {
     display: inline;
+    padding-bottom: 20px;
 }
