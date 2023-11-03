@@ -19,7 +19,7 @@ from .utils import analyse_journal_entry, format_content
 # Imports for organising chart data 
 from collections import OrderedDict
 from django.db.models import Count
-from django.db.models.functions import ExtractMonth
+from django.db.models.functions import ExtractMonth, TruncMonth 
 import json
 
 
@@ -115,6 +115,15 @@ def journal(request):
             journal_entry.thought_distortion_type = formatted_text["distortion-types"]
             journal_entry.count = formatted_text["count"]
             journal_entry.save()
+
+            # Save Thought Distortions to Model 
+            distortion_types_list = formatted_text["distortion-types"].split(", ")
+            for distortion_type in distortion_types_list:
+                ThoughtDistortion.objects.create(
+                    distortion_type=distortion_type,    
+                    journal_entry=journal_entry,
+                )
+
             return redirect("journallist")
     else:
         form = CreateJournalEntry()
@@ -185,7 +194,17 @@ def sentiment(request):
         .order_by('month')
     )
 
+    distortion_data = (
+        ThoughtDistortion.objects.filter(journal_entry__user=request.user)
+        .values('distortion_type')
+        .annotate(count=Count('journal_entry'))
+        .order_by('-count')
+    )
+
+    distortion_data_list = list(distortion_data)
+
     # Organise data for ChartJs
+    # Journal Entry Count Data
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     counts = [0] * 12 
     for entry in entries_by_date:
@@ -199,5 +218,13 @@ def sentiment(request):
             'data': counts,
         }]
     }
+    # Convert data to JSON for chartJS
     data_json = json.dumps(data)
-    return render(request, "journal/sentiment.html", {'data': data_json})
+    distortions_json = json.dumps(distortion_data_list)
+    # Data Context Dictionary 
+    context = {
+        'data': data_json,
+        'distortion_data': distortions_json
+    }
+    print(distortion_data_list)
+    return render(request, "journal/sentiment.html", context)

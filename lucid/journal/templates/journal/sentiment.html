@@ -38,11 +38,11 @@
 
                     </div>
 
-                    <div class="graph-two">
-
+                    <div class="graph-two" style="width: 500px; height: 500px;">
+                        <canvas id="distortionContainer"></canvas>
                     </div>
 
-                    <div class="graph-three">
+                    <div class="graph-three" style="width:500px; height: 500px">
                         <canvas id="chartContainer"></canvas>
                     </div>
 
@@ -64,6 +64,7 @@
     </div>
     {% block scripts%}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Journal Entry Line Chart -->
 <script>
     const ctx = document.getElementById('chartContainer');
     let data = '{{ data|safe }}';  
@@ -96,6 +97,31 @@
                 title: {  
                     display: true,
                     text: 'Journal Entries'
+                }
+            }
+        },
+    });
+</script>
+
+<!-- Distortion type count doughnut chart -->
+<script>
+    const ctx1 = document.getElementById('distortionContainer');
+    let distortion_data = '{{ distortion_data|safe }}';
+    distortion_data_json = JSON.parse(distortion_data);
+    console.log(distortion_data_json)  
+
+    new Chart(ctx1, {  
+        type: 'doughnut',
+        data: distortion_data_json,
+        options: {
+            responsive: true,
+            plugins: {  
+                legend: {  
+                    position: 'top',
+                },
+                title: {  
+                    display: true,
+                    text: 'Thought Distortion Types'
                 }
             }
         },

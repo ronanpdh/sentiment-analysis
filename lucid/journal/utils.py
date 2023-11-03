@@ -52,8 +52,12 @@ def format_content(analysed_text):
             split_line = line.split(". ", 1)
             if len(split_line) == 2:  # Make sure there are enough elements to unpack
                 _, text_entry = split_line
-                distortion_type, description = text_entry.split(": ", 1)
-                thought_distortions[distortion_type] = description
+                split_text_entry = text_entry.split(": ", 1)
+                if len(split_text_entry) == 2:  # Check the result of the split before unpacking
+                    distortion_type, description = split_text_entry
+                    thought_distortions[distortion_type] = description
+                else:
+                    print(f"Unexpected format in text_entry: {text_entry}")
 
     # Convert thought_distortions into a string and seperate into sentences for better front end output
     formatted_distortions = "\n".join(
@@ -63,6 +67,7 @@ def format_content(analysed_text):
     sentences = nltk.sent_tokenize(formatted_distortions)
 
     # Strip comma's out of each string in the list and save to a new list, then remove brackts for output. Then use join to turn to a string for output.
+    values_formatted = ''
     formatted_sentences_list = []
     for str in sentences:
         sentence_strip = str.replace(",", "")
