@@ -33,7 +33,7 @@
             <div class="pure-g pure-u-5-5 ">
                 <div class="graph-container">
                     <div class="graph-one">
-                        <canvas id="entriesContainer"></canvas>
+                        <canvas id="sentimentContainer"></canvas>
                     </div>
 
                     <div class="graph-two">
@@ -41,13 +41,18 @@
                     </div>
 
                     <div class="graph-three">
-                        <canvas id="sentimentContainer"></canvas>
+                        <canvas id="entriesContainer"></canvas>
                     </div>
-
+                    
                     <div class="graph-four">
                         <div class="learning">
                             <h1>Learning Resources</h1>
                         </div>
+                        <div class="learning-one"></div>
+                        <div class="learning-two"></div>
+                        <div class="learning-three"></div>
+                        <div class="learning-four"></div>
+                        <div class="learning-five"></div>
                     </div>
                         
                 </div>
@@ -57,7 +62,11 @@
             </div>
         </div>
     </div>
-    {% block scripts%}
+
+
+
+
+{% block scripts%}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Journal Entry Line Chart -->
 <script>

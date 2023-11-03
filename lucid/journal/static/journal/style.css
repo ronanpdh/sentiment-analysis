@@ -147,6 +147,10 @@ a.pure-menu-heading {
     box-shadow: 0px 1px 1px 4px rgba(0, 0, 0, 0.02);
 }
 
+.name-title {
+    padding: 25px;
+}
+
 
 
 /* Login Page / Accounts Styling  */
@@ -458,7 +462,7 @@ div.text-entry {
 }
 
 .graph-one {
-    grid-area: entries;
+    grid-area: sentiment;
 }
 
 .graph-two {
@@ -466,24 +470,50 @@ div.text-entry {
 }
 
 .graph-three {
-    grid-area: sentiment;
+    grid-area: entries;
 }
 
+.learning-one {
+    grid-area: l1;
+}
+.learning-two {
+    grid-area: l2;
+}
+.learning-three {
+    grid-area: l3;
+}
+.learning-four {
+    grid-area: l4;
+}
+.learning-five {
+    grid-area: l5;
+}
+
+
 .graph-four {
-    grid-area: learning
+    grid-area: learning;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+        "learning learning learning"
+        "l1 l1 l2"
+        "l3 l4 l5"
 }
 
 .graph-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
     grid-template-areas:
+        "sentiment  distortions"
         "entries entries "
-        "sentiment  distortions "
-        "learning . ";
+        "learning learning ";
     padding: 2em;
     gap: 25px;
 }
+
+
 
 /* Profile page */
 .profile-container {
