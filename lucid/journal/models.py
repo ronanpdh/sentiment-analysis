@@ -24,7 +24,7 @@ class JournalEntry(models.Model):
     text_entry = models.TextField()
     title = models.CharField(max_length=300, default="")
     date = models.DateTimeField(auto_now_add=True, db_index=True)
-    sentiment = models.CharField(max_length=30, null=True, blank=True)
+    sentiment = models.CharField(max_length=30, null=True, blank=True, db_index=True)
     thought_distortions = models.CharField(max_length=30, null=True, blank=True)
     thought_distortion_type = models.CharField(max_length=30, null=True, blank=True)
     count = models.IntegerField(null=True, blank=True)

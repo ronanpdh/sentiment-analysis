@@ -33,21 +33,21 @@
         <div class="sentiment-container">
             <div class="pure-g pure-u-5-5 ">
                 <div class="graph-container">
-                    <div class="graph-one" style="width:500px; height: 500px">
+                    <div class="graph-one">
                         <canvas id="entriesContainer"></canvas>
                     </div>
 
-                    <div class="graph-two" style="width: 500px; height: 500px;">
+                    <div class="graph-two">
                         <canvas id="distortionContainer"></canvas>
                     </div>
 
-                    <div class="graph-three" style="width:500px; height: 500px">
-                        <canvas id="chartContainer"></canvas>
+                    <div class="graph-three">
+                        <canvas id="sentimentContainer"></canvas>
                     </div>
 
                     <div class="graph-four">
                         <div class="learning">
-                            <p>Learning section</p>
+                            <h1>Learning Resources</h1>
                         </div>
                     </div>
                         
@@ -118,6 +118,30 @@
                 title: {  
                     display: true,
                     text: 'Distortion Types',
+                }
+            }
+        },
+    });
+</script>
+
+<!-- Sentiment PolarArea Chart -->
+<script>
+    const ctx2 = document.getElementById('sentimentContainer');
+    let sentiment_data = '{{ sentiment_data|safe }}';
+    sentiment_data_json = JSON.parse(sentiment_data);  
+
+    new Chart(ctx2, {  
+        type: 'polarArea',
+        data: sentiment_data_json,
+        options: {
+            responsive: true,
+            plugins: {  
+                legend: {  
+                    position: 'bottom',
+                },
+                title: {  
+                    display: true,
+                    text: 'Sentiment',
                 }
             }
         },

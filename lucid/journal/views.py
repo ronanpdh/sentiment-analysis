@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import DeleteView
 from django.contrib import messages
-from .models import JournalEntry, ThoughtDistortion
+from .models import JournalEntry, ThoughtDistortion, SentimentAnalysis
 from .forms import CreateJournalEntry, SignUpForm, EmailChangeForm, PasswordChangeForm
 from .utils import analyse_journal_entry, format_content
 
@@ -116,7 +116,7 @@ def journal(request):
             journal_entry.count = formatted_text["count"]
             journal_entry.save()
 
-            # Save Thought Distortions to Model 
+            # Save Thought Distortions to Distortion Model 
             distortion_types_list = formatted_text["distortion-types"].split(", ")
             for distortion_type in distortion_types_list:
                 ThoughtDistortion.objects.create(
@@ -184,7 +184,7 @@ class JournalDeleteView(LoginRequiredMixin, DeleteView):
 
 # Analytics View
 @login_required
-def sentiment(request):
+def analytics(request):
     # Gather Data from models and order
     entries_by_date = (
         JournalEntry.objects.filter(user=request.user)
@@ -193,7 +193,7 @@ def sentiment(request):
         .annotate(count=Count('id'))
         .order_by('month')
     )
-
+    # Distortion Data
     distortion_data = (
         ThoughtDistortion.objects.filter(journal_entry__user=request.user)
         .values('distortion_type')
@@ -201,6 +201,9 @@ def sentiment(request):
         .order_by('-count')
     )
 
+    # Sentiment Data 
+    sentiment_counts = JournalEntry.objects.filter(user=request.user).values('sentiment').annotate(freq=Count('sentiment'))
+    
     # Organise data for ChartJs
     # Journal Entry Count Data
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -230,13 +233,27 @@ def sentiment(request):
         }]
     }
 
+    # Sentiment Data Formatting 
+    sentiment_labels = [item['sentiment'] for item in sentiment_counts]
+    sentiment_data_count = [item['freq'] for item in sentiment_counts]
+
+    sentiment_data = {
+        'labels': sentiment_labels,
+        'datasets': [{
+            'label': 'Count',
+            'data': sentiment_data_count
+        }]
+    }
+
     # Convert data to JSON for chartJS
     data_json = json.dumps(data)
     distortions_json = json.dumps(distortion_data)
+    sentiment_json = json.dumps(sentiment_data)
     # Data Context Dictionary 
     context = {
         'data': data_json,
-        'distortion_data': distortions_json
+        'distortion_data': distortions_json,
+        'sentiment_data': sentiment_json
     }
     print(distortion_data_list)
-    return render(request, "journal/sentiment.html", context)
+    return render(request, "journal/analytics.html", context)
