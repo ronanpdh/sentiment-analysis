@@ -33,9 +33,8 @@
         <div class="sentiment-container">
             <div class="pure-g pure-u-5-5 ">
                 <div class="graph-container">
-                    <div class="graph-one">
-                        
-
+                    <div class="graph-one" style="width:500px; height: 500px">
+                        <canvas id="entriesContainer"></canvas>
                     </div>
 
                     <div class="graph-two" style="width: 500px; height: 500px;">
@@ -47,12 +46,9 @@
                     </div>
 
                     <div class="graph-four">
-
-
                         <div class="learning">
                             <p>Learning section</p>
                         </div>
-
                     </div>
                         
                 </div>
@@ -66,7 +62,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Journal Entry Line Chart -->
 <script>
-    const ctx = document.getElementById('chartContainer');
+    const ctx = document.getElementById('entriesContainer');
     let data = '{{ data|safe }}';  
     data = JSON.parse(data);  
 
@@ -117,11 +113,11 @@
             responsive: true,
             plugins: {  
                 legend: {  
-                    position: 'top',
+                    position: 'bottom',
                 },
                 title: {  
                     display: true,
-                    text: 'Thought Distortion Types'
+                    text: 'Distortion Types',
                 }
             }
         },

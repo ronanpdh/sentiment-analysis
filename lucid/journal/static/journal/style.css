@@ -455,7 +455,7 @@ div.text-entry {
 }
 
 .graph-one {
-    grid-area: sentiment;
+    grid-area: entries;
 }
 
 .graph-two {
@@ -463,21 +463,22 @@ div.text-entry {
 }
 
 .graph-three {
-    grid-area: entries;
+    grid-area: sentiment;
 }
 
-/* .graph-four {
+.graph-four {
     grid-area: learning
-} */
+}
 
 .graph-container {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas:
-        "sentiment sentiment sentiment distortions"
-        "entries entries . learning";
-    padding-top: 2em;
+        "entries . "
+        "sentiment  distortions "
+        "learning . ";
+    padding: 2em;
 }
 
 /* Profile page */

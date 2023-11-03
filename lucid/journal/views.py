@@ -201,8 +201,6 @@ def sentiment(request):
         .order_by('-count')
     )
 
-    distortion_data_list = list(distortion_data)
-
     # Organise data for ChartJs
     # Journal Entry Count Data
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -218,9 +216,23 @@ def sentiment(request):
             'data': counts,
         }]
     }
+
+    # Distortion Data format for ChartJS
+    distortion_data_list = list(distortion_data)
+    distortion_types = [item['distortion_type'] for item in distortion_data_list]
+    counts = [item['count'] for item in distortion_data_list]
+
+    distortion_data = {
+    'labels': distortion_types,
+    'datasets': [{
+        'label': 'Count',
+        'data': counts
+        }]
+    }
+
     # Convert data to JSON for chartJS
     data_json = json.dumps(data)
-    distortions_json = json.dumps(distortion_data_list)
+    distortions_json = json.dumps(distortion_data)
     # Data Context Dictionary 
     context = {
         'data': data_json,
